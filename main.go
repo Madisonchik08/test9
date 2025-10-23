@@ -21,7 +21,7 @@ func generateRandomElements(size int) []int {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	data := make([]int, size)
 	for i := 0; i < size; i++ {
-		data[i] = r.Intn(size)
+		data[i] = r.Int()
 	}
 	return data
 }
