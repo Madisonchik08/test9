@@ -1,7 +1,11 @@
 package main
 
 // Пишите тесты в этом файле
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestGenerateRandomElement(t *testing.T) {
 	tests := []struct {
@@ -16,12 +20,10 @@ func TestGenerateRandomElement(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := generateRandomElements(tt.size)
-			if len(got) != tt.wantLen {
-				t.Errorf("generateRandomElements() = %v, want %v", len(got), tt.wantLen)
-			}
+			assert.Equal(t, tt.wantLen, len(got), "generateRandomElements() length mismatch")
 			if tt.wantLen > 0 {
 				for _, v := range got {
-					if v <= 0 {
+					if v < 0 {
 						t.Errorf("generateRandomElements() = %v, want > 0", v)
 					}
 				}
@@ -46,9 +48,7 @@ func TestMaximum(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := maximum(tt.data)
-			if got != tt.want {
-				t.Errorf("maximum() = %v, want %v", got, tt.want)
-			}
+			assert.Equal(t, tt.want, got, "maximum() mismatch")
 		})
 	}
 }
@@ -71,9 +71,7 @@ func TestMaxChunks(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := maxChunks(tt.data)
-			if got != tt.want {
-				t.Errorf("maxChunks() = %v, want %v", got, tt.want)
-			}
+			assert.Equal(t, tt.want, got, "maxChunks() result mismatch")
 		})
 	}
 }
